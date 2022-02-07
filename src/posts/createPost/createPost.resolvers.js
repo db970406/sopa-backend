@@ -11,6 +11,7 @@ export default {
         createPost: checkLoginState(
             async (_, { title, description }, { loggedInUser }) => {
                 try {
+                    // 게시글을 생성하고 작성 User와 connect된다.
                     await client.post.create({
                         data: {
                             title,

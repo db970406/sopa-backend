@@ -6,6 +6,10 @@
 import client from '../../client';
 import { checkLoginState } from '../../users/users.utils';
 
+/** 
+ * 게시글 관심 기능만을 위해서라면 굳이 따로 데이터 모델로 만들 필요는 없었다.
+ * 추후 관심 유저 보기 기능 추가 등 확장성 고려해서 데이터 모델로 만들었다.
+ */
 export default {
     Mutation: {
         toggleLike: checkLoginState(

@@ -12,5 +12,9 @@ export default gql`
         email:String!
         password:String!
         createdAt:String!
+        likes:[Like]
+        posts:[Post]
+        comments:[Comment]
+        isMe:Boolean!
     }
 `

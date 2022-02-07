@@ -14,4 +14,12 @@ export default gql`
         createdAt:String!
         updatedAt:String!
     }
+
+    type Like{
+        id:Int!
+        user:User!
+        post:Post!
+        createdAt:String!
+        updatedAt:String!
+    }
 `

@@ -6,11 +6,12 @@
 import { gql } from 'apollo-server';
 
 export default gql`
-    type User{
+    type Post{
         id:Int!
-        name:String!
-        email:String!
-        password:String!
+        title:String!
+        description:String
+        owner:User!
         createdAt:String!
+        updatedAt:String!
     }
 `

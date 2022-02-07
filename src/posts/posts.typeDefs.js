@@ -13,6 +13,10 @@ export default gql`
         user:User!
         createdAt:String!
         updatedAt:String!
+        likeCount:Int!
+        commentCount:Int!
+        comments:[Comment]
+        readCount:Int!
     }
 
     type Like{

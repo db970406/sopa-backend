@@ -12,6 +12,7 @@ datasource db {
 
 model User {
   id        Int       @id @default(autoincrement())
+  level     Int       @default(0)
   name      String    @unique
   email     String    @unique
   password  String
@@ -29,6 +30,7 @@ model Post {
   user        User      @relation(fields: [userId], references: [id])
   userId      Int
   readCount   Int       @default(0)
+  isExpired   Boolean   @default(false)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
   likes       Like[]

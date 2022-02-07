@@ -10,7 +10,7 @@ export default gql`
         id:Int!
         title:String!
         description:String
-        owner:User!
+        user:User!
         createdAt:String!
         updatedAt:String!
     }

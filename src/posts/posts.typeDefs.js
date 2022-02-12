@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : ------
+ * 수정일 : 22.02.12
  */
 
 import { gql } from 'apollo-server';
@@ -17,6 +17,7 @@ export default gql`
         commentCount:Int!
         comments:[Comment]
         readCount:Int!
+        isExpired:Boolean!
     }
 
     type Like{

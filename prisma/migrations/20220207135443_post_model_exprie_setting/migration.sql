@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Post" ADD COLUMN     "expiryDate" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "isExpired" BOOLEAN NOT NULL DEFAULT false;

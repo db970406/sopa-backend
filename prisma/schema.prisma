@@ -31,6 +31,7 @@ model Post {
   readCount   Int       @default(0)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
+  isExpired   Boolean   @default(false)
   likes       Like[]
   comments    Comment[]
 }

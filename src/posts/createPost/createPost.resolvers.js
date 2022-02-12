@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : ------
+ * 수정일 : 22.02.12
  */
 
 import client from '../../client';
@@ -9,10 +9,10 @@ import { checkLoginState } from '../../users/users.utils';
 export default {
     Mutation: {
         createPost: checkLoginState(
-            async (_, { title, description }, { loggedInUser }) => {
+            async (_, { title, description, skills }, { loggedInUser }) => {
                 try {
                     // 게시글을 생성하고 작성 User와 connect된다.
-                    await client.post.create({
+                    const post = await client.post.create({
                         data: {
                             title,
                             description,
@@ -23,6 +23,13 @@ export default {
                             }
                         }
                     });
+
+                    const parsedSkillsArray = JSON.parse(skills);
+                    parsedSkillsArray.map((parsedSkill) => {
+                        if (parsedSkill.position === "frontend") {
+                            console.log(parsedSkill.skill)
+                        }
+                    })
 
                     return {
                         ok: true

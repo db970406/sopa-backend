@@ -12,6 +12,7 @@ datasource db {
 
 model User {
   id        Int       @id @default(autoincrement())
+  level     Int       @default(0)
   name      String    @unique
   email     String    @unique
   password  String
@@ -23,17 +24,20 @@ model User {
 }
 
 model Post {
-  id          Int       @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   title       String
   description String?
-  user        User      @relation(fields: [userId], references: [id])
+  user        User       @relation(fields: [userId], references: [id])
   userId      Int
-  readCount   Int       @default(0)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime? @updatedAt
-  isExpired   Boolean   @default(false)
+  readCount   Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime?  @updatedAt
+  isExpired   Boolean    @default(false)
   likes       Like[]
   comments    Comment[]
+  frontends   Frontend[]
+  backends    Backend[]
+  apps        App[]
 }
 
 model Like {
@@ -57,4 +61,22 @@ model Comment {
   updatedAt DateTime? @updatedAt
   userId    Int
   postId    Int
+}
+
+model Frontend {
+  id    Int    @id @default(autoincrement())
+  skill String @unique
+  posts Post[]
+}
+
+model Backend {
+  id    Int    @id @default(autoincrement())
+  skill String @unique
+  posts Post[]
+}
+
+model App {
+  id    Int    @id @default(autoincrement())
+  skill String @unique
+  posts Post[]
 }

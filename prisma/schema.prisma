@@ -29,10 +29,10 @@ model Post {
   description String?
   user        User       @relation(fields: [userId], references: [id])
   userId      Int
-  readCount   Int        @default(0)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime?  @updatedAt
-  isExpired   Boolean    @default(false)
+  readCount   Int       @default(0)
+  isExpired   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
   likes       Like[]
   comments    Comment[]
   frontends   Frontend[]

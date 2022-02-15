@@ -7,6 +7,6 @@ import { gql } from 'apollo-server';
 
 export default gql`
     type Mutation{
-        createPost(title:String!,description:String,skills:String!):MutationResults!
+        createPost(title:String!,description:String,skills:String!):Post
     }
 `

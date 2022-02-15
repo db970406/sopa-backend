@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.02.15
+ * 수정일 : 22.02.12
  */
 
 import client from '../../client';
@@ -12,12 +12,12 @@ export default {
         createPost: checkLoginState(
             async (_, { title, description, skills }, { loggedInUser }) => {
                 try {
-                    if (!skills) throw new Error("스킬을 하나 이상 선택해주세요!");
-
+                    if (!skills) return null;
                     // 게시글을 생성하고 작성 User와 connect된다.
+
                     const [frontendSkills, backendSkills, appSkills] = sortSkillsbyPosition(skills, true);
 
-                    await client.post.create({
+                    const post = await client.post.create({
                         data: {
                             title,
                             description,
@@ -44,14 +44,9 @@ export default {
                         }
                     });
 
-                    return {
-                        ok: true
-                    }
-                } catch (error) {
-                    return {
-                        ok: false,
-                        error: error.message
-                    }
+                    return post
+                } catch {
+                    return null
                 }
             }
         )

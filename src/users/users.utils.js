@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : ------
+ * 수정일 : 22.02.15
  */
 
 import jwt from "jsonwebtoken";
@@ -24,9 +24,13 @@ export const getUser = async (token) => {
 
 // 로그인이 필요한 resolver들을 사용할 때 로그인 상태를 체크함
 export const checkLoginState = (resolver) => (root, args, ctx, info) => {
-
     // context 부분에 loggedInUser가 없는 비로그인 상태 시 접근 불가하게 함
     if (!ctx.loggedInUser) {
+        const { operation, fieldName } = info
+
+        if (operation.operation === "query") return null;
+        else if (fieldName.includes("create")) return null;
+
         return {
             ok: false,
             error: "로그인이 필요합니다."

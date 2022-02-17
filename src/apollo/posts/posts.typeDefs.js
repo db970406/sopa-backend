@@ -18,6 +18,9 @@ export default gql`
         comments:[Comment]
         readCount:Int!
         isExpired:Boolean!
+        frontends:[Frontend]
+        backends:[Backend]
+        apps:[App]
     }
 
     type Like{
@@ -26,5 +29,21 @@ export default gql`
         post:Post!
         createdAt:String!
         updatedAt:String!
+    }
+
+    type Frontend{
+        id:Int!
+        skill:String!
+        posts:[Post]
+    }
+    type Backend{
+        id:Int!
+        skill:String!
+        posts:[Post]
+    }
+    type App{
+        id:Int!
+        skill:String!
+        posts:[Post]
     }
 `

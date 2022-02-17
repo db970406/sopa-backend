@@ -25,6 +25,11 @@ export default {
                 },
                 take: 20,
                 skip: pagination,
+                include: {
+                    frontends: true,
+                    backends: true,
+                    apps: true
+                },
                 orderBy: {
                     createdAt: "desc"
                 }

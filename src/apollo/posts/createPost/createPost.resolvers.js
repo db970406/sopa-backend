@@ -15,9 +15,7 @@ export default {
                 try {
                     if (!skills) return null;
                     // 게시글을 생성하고 작성 User와 connect된다.
-
                     const [frontendSkills, backendSkills, appSkills] = sortSkillsbyPosition(skills, true);
-
                     const post = await client.post.create({
                         data: {
                             title,
@@ -44,7 +42,6 @@ export default {
                             }
                         }
                     });
-
                     return post
                 } catch {
                     return null

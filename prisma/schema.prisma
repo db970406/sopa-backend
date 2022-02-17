@@ -31,9 +31,9 @@ model Post {
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      Int
   readCount   Int        @default(0)
+  isExpired   Boolean    @default(false)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime?  @updatedAt
-  isExpired   Boolean    @default(false)
   likes       Like[]
   comments    Comment[]
   frontends   Frontend[]

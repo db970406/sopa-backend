@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : ------
+ * 수정일 : 22.02.18
  */
 
 import client from '../../../client';
@@ -56,7 +56,6 @@ export default {
                             }
                         })
                     }
-
                     return {
                         ok: true
                     }

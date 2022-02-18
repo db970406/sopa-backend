@@ -25,20 +25,21 @@ model User {
 }
 
 model Post {
-  id          Int        @id @default(autoincrement())
-  title       String
-  description String?
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      Int
-  readCount   Int        @default(0)
-  isExpired   Boolean    @default(false)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime?  @updatedAt
-  likes       Like[]
-  comments    Comment[]
-  frontends   Frontend[]
-  backends    Backend[]
-  apps        App[]
+  id           Int        @id @default(autoincrement())
+  title        String
+  description  String?
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       Int
+  readCount    Int        @default(0)
+  isExpired    Boolean    @default(false)
+  openChatLink String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime?  @updatedAt
+  likes        Like[]
+  comments     Comment[]
+  frontends    Frontend[]
+  backends     Backend[]
+  apps         App[]
 }
 
 model Like {

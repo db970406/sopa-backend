@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.02.15
+ * 수정일 : 22.02.18
  */
 
 import client from '../../../client';
@@ -31,7 +31,7 @@ export default {
                     apps: true
                 },
                 orderBy: {
-                    createdAt: "desc"
+                    updatedAt: "desc"
                 }
             })
             return posts

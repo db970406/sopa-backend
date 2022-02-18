@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : ------
+ * 수정일 : 22.02.18
  */
 
 import client from '../../../client'
@@ -9,18 +9,22 @@ import client from '../../../client'
 export default {
     Query: {
         seePost: async (_, { postId }, { loggedInUser }) => {
-
             const findPost = await client.post.findUnique({
                 where: {
                     id: postId
-                }
+                },
+                include: {
+                    frontends: true,
+                    backends: true,
+                    apps: true
+                },
             })
 
             // 비작성자가 조회하면 조회수 1씩 증가
-            if (findPost.userId !== loggedInUser.id) {
+            if (findPost.userId !== loggedInUser?.id) {
                 await client.post.update({
                     where: {
-                        id: findPost.id,
+                        id: postId,
                     },
                     data: {
                         readCount: ++findPost.readCount

@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.02.12
+ * 수정일 : 22.02.18
  */
 
 import { gql } from 'apollo-server';
@@ -13,11 +13,13 @@ export default gql`
         user:User!
         createdAt:String!
         updatedAt:String!
+        isLiked:Boolean!
         likeCount:Int!
         commentCount:Int!
         comments:[Comment]
         readCount:Int!
         isExpired:Boolean!
+        openChatLink:String
         frontends:[Frontend]
         backends:[Backend]
         apps:[App]

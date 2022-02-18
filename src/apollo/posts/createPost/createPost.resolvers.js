@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.02.12
+ * 수정일 : 22.02.18
  */
 
 import client from '../../../client';
@@ -11,7 +11,7 @@ import { sortSkillsbyPosition } from '../posts.utils';
 export default {
     Mutation: {
         createPost: checkLoginState(
-            async (_, { title, description, skills }, { loggedInUser }) => {
+            async (_, { title, description, skills, openChatLink }, { loggedInUser }) => {
                 try {
                     if (!skills) return null;
                     // 게시글을 생성하고 작성 User와 connect된다.
@@ -20,6 +20,7 @@ export default {
                         data: {
                             title,
                             description,
+                            openChatLink,
                             user: {
                                 connect: {
                                     id: loggedInUser.id

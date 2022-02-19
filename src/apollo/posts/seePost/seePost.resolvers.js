@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.02.18
+ * 수정일 : 22.02.19
  */
 
 import client from '../../../client'
@@ -16,7 +16,7 @@ export default {
                 include: {
                     frontends: true,
                     backends: true,
-                    apps: true
+                    apps: true,
                 },
             })
 

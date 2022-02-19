@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : ------
+ * 수정일 : 22.02.19
  */
 
 import client from '../../../client';
@@ -20,7 +20,7 @@ export default {
                     });
                     if (!isExistPost) throw new Error("존재하지 않는 게시글입니다.");
 
-                    await client.comment.create({
+                    const createdComment = await client.comment.create({
                         data: {
                             comment,
                             post: {
@@ -33,17 +33,14 @@ export default {
                                     id: loggedInUser.id
                                 }
                             }
+                        },
+                        include: {
+                            user: true
                         }
                     });
-
-                    return {
-                        ok: true
-                    }
-                } catch (error) {
-                    return {
-                        ok: false,
-                        error: error.message
-                    }
+                    return createdComment;
+                } catch {
+                    return null
                 }
             }
         )

@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.02.18
+ * 수정일 : 22.02.19
  */
 
 import client from '../../client';
@@ -22,6 +22,9 @@ export default {
             return Boolean(checkIsLiked);
         },
         commentCount: ({ id }) => client.comment.count({ where: { postId: id } }),
-        comments: ({ id }) => client.comment.findMany({ where: { postId: id } }),
+        comments: ({ id }) => client.comment.findMany({
+            where: { postId: id },
+            include: { user: true }
+        }),
     }
 }

@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.02.18
+ * 수정일 : 22.02.23
  */
 
 import client from '../../../client';
@@ -25,13 +25,8 @@ export default {
                 },
                 take: 20,
                 skip: pagination,
-                include: {
-                    frontends: true,
-                    backends: true,
-                    apps: true
-                },
                 orderBy: {
-                    updatedAt: "desc"
+                    createdAt: "desc"
                 }
             })
             return posts

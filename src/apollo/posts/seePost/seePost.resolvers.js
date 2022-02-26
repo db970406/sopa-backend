@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.02.19
+ * 수정일 : 22.02.26
  */
 
 import client from '../../../client'
@@ -12,12 +12,7 @@ export default {
             const findPost = await client.post.findUnique({
                 where: {
                     id: postId
-                },
-                include: {
-                    frontends: true,
-                    backends: true,
-                    apps: true,
-                },
+                }
             })
 
             // 비작성자가 조회하면 조회수 1씩 증가

@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.02.18
+ * 수정일 : 22.02.26
  */
 
 import client from '../../../client';
@@ -8,8 +8,8 @@ import { sortSkillsbyPosition } from '../posts.utils';
 
 export default {
     Query: {
-        seePosts: async (_, { pagination, skills }) => {
-            // Home에 게시글들을 나열할 때 pagination을 활용한다(page식을 쓸 것인지는 나중에 생각해보자)
+        seePosts: async (_, { offset, skills }) => {
+            // Home에 게시글들을 나열할 때 offset을 활용한다(page식을 쓸 것인지는 나중에 생각해보자)
             let resultsArray = [];
             if (skills) {
                 resultsArray = sortSkillsbyPosition(skills)
@@ -23,15 +23,10 @@ export default {
                         ]
                     })
                 },
-                take: 20,
-                skip: pagination,
-                include: {
-                    frontends: true,
-                    backends: true,
-                    apps: true
-                },
+                take: 6,
+                skip: offset,
                 orderBy: {
-                    updatedAt: "desc"
+                    createdAt: "desc"
                 }
             })
             return posts

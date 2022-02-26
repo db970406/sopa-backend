@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : ------
+ * 수정일 : 22.02.23
  */
 
 import client from '../../../client';
@@ -9,7 +9,7 @@ import { checkLoginState } from '../../users/users.utils';
 export default {
     Mutation: {
         editPost: checkLoginState(
-            async (_, { postId, title, description }, { loggedInUser }) => {
+            async (_, { postId, title, description, openChatLink }, { loggedInUser }) => {
                 try {
                     // 존재하는 게시글인지 체크하고, 있는 경우 connect되어 있는 userId만 가져온다
                     const isExistPost = await client.post.findUnique({
@@ -31,10 +31,10 @@ export default {
                             },
                             data: {
                                 title,
-                                description
+                                description,
+                                openChatLink
                             }
                         })
-
                         return {
                             ok: true
                         }

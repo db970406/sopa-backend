@@ -16,13 +16,14 @@ export default gql`
         isLiked:Boolean!
         likeCount:Int!
         commentCount:Int!
-        comments:[Comment]
+        comments(offset:Int):[Comment]
         readCount:Int!
         isExpired:Boolean!
         openChatLink:String
         frontends:[Frontend]
         backends:[Backend]
         apps:[App]
+        isMine:Boolean!
     }
 
     type Like{

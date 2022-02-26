@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.02.23
+ * 수정일 : 22.02.26
  */
 
 import client from '../../client';
@@ -22,13 +22,16 @@ export default {
             return Boolean(checkIsLiked);
         },
         commentCount: ({ id }) => client.comment.count({ where: { postId: id } }),
-        comments: ({ id }) => client.comment.findMany({
+        comments: ({ id }, { offset }) => client.comment.findMany({
             where: { postId: id },
             include: { user: true },
+            take: 6,
+            skip: offset,
             orderBy: {
                 createdAt: "desc"
             }
         }),
+
         frontends: ({ id }) => client.frontend.findMany({
             where: {
                 posts: {
@@ -56,5 +59,6 @@ export default {
                 }
             }
         }),
+        isMine: ({ userId }, _, { loggedInUser }) => userId === loggedInUser?.id
     }
 }

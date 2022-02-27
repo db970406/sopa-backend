@@ -7,6 +7,6 @@ import { gql } from 'apollo-server';
 
 export default gql`
     type Query{
-        searchPosts(title:String!,offset:Int):[Post]
+        searchPosts(title:String!):[Post]
     }
 `

@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.15
- * 수정일 : ------
+ * 수정일 : 22.02.27
  */
 
 export const sortSkillsbyPosition = (skills, isCreate) => {
@@ -60,4 +60,29 @@ export const sortSkillsbyPosition = (skills, isCreate) => {
         ...backendsArray,
         ...appsArray
     ]
+}
+
+export const makeArrangement = (howToArrangement) => {
+    switch (howToArrangement) {
+        case "new":
+            return {
+                createdAt: "desc"
+            }
+        case "likeCount":
+            return {
+                likes: {
+                    _count: "desc"
+                },
+            }
+        case "commentCount":
+            return {
+                comments: {
+                    _count: "desc"
+                },
+            }
+        case "readCount":
+            return {
+                readCount: "desc"
+            }
+    }
 }

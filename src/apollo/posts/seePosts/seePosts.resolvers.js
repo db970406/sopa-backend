@@ -4,7 +4,7 @@
  */
 
 import client from '../../../client';
-import { sortSkillsbyPosition } from '../posts.utils';
+import { makeArrangement, sortSkillsbyPosition } from '../posts.utils';
 
 export default {
     Query: {
@@ -13,31 +13,6 @@ export default {
             let resultsArray = [];
             if (skills) {
                 resultsArray = sortSkillsbyPosition(skills)
-            }
-
-            const makeArrangement = () => {
-                switch (howToArrangement) {
-                    case "new":
-                        return {
-                            createdAt: "desc"
-                        }
-                    case "likeCount":
-                        return {
-                            likes: {
-                                _count: "desc"
-                            },
-                        }
-                    case "commentCount":
-                        return {
-                            comments: {
-                                _count: "desc"
-                            },
-                        }
-                    case "readCount":
-                        return {
-                            readCount: "desc"
-                        }
-                }
             }
 
             const posts = await client.post.findMany({
@@ -50,7 +25,7 @@ export default {
                 },
                 take: 6,
                 skip: offset,
-                orderBy: makeArrangement()
+                orderBy: makeArrangement(howToArrangement)
             })
 
             return posts

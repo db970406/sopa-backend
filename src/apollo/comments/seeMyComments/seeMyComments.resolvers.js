@@ -9,7 +9,7 @@ import { checkLoginState } from '../../users/users.utils';
 export default {
     Query: {
         seeMyComments: checkLoginState(
-            async (_, { offset }, { loggedInUser }) => client.comment.findMany({
+            (_, { offset }, { loggedInUser }) => client.comment.findMany({
                 where: {
                     userId: loggedInUser.id
                 },

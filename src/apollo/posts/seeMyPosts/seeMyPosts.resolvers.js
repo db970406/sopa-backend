@@ -1,22 +1,22 @@
 /**
  * 생성일 : 22.02.26
- * 수정일 : 22.02.27
+ * 수정일 : 22.03.03
  */
 
 import client from '../../../client';
 import { checkLoginState } from '../../users/users.utils';
-import { makeArrangement } from '../posts.utils';
+import { makeSortMethod } from '../posts.utils';
 
 export default {
     Query: {
         seeMyPosts: checkLoginState(
-            (_, { offset, howToArrangement }, { loggedInUser }) => client.post.findMany({
+            (_, { offset, howToSort }, { loggedInUser }) => client.post.findMany({
                 where: {
                     userId: loggedInUser.id
                 },
                 take: 6,
                 skip: offset,
-                orderBy: makeArrangement(howToArrangement)
+                orderBy: makeSortMethod(howToSort)
             })
         )
     }

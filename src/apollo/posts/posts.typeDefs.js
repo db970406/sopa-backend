@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.02.18
+ * 수정일 : 22.03.03
  */
 
 import { gql } from 'apollo-server';
@@ -36,17 +36,17 @@ export default gql`
 
     type Frontend{
         id:Int!
-        skill:String!
+        name:String!
         posts:[Post]
     }
     type Backend{
         id:Int!
-        skill:String!
+        name:String!
         posts:[Post]
     }
     type App{
         id:Int!
-        skill:String!
+        name:String!
         posts:[Post]
     }
 `

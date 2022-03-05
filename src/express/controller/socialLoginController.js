@@ -179,12 +179,11 @@ export const kakaoLogin = async (req, res) => {
             })
         ).json()
 
-        // 그런데 카카오는 사업자 등록해서 비즈앱으로 전환해야 이메일 필수 동의가 가능하다.
-        // 카카오 소셜로그인 방식은 알았으니 여기까지만 하자
-        return;
-        /* const findUserEmail = await client.user.count({
+        const { properties } = userData
+
+        const findUserEmail = await client.user.count({
             where: {
-                email: userData.properties.email
+                email: properties.email
             }
         })
         let user;
@@ -192,20 +191,20 @@ export const kakaoLogin = async (req, res) => {
             const hashPassword = await bcrypt.hash(String(Date.now()), 10)
             await client.user.create({
                 data: {
-                    name: userData.properties.nickname,
+                    name: properties.nickname,
                     socialLogin: "KAKAO",
-                    email: userData.properties.email,
+                    email: properties.email,
                     password: hashPassword
                 }
             })
         }
         user = await client.user.findUnique({
             where: {
-                email: userData.properties.email
+                email: properties.email
             }
         })
-        const jwtToken = await jwt.sign({ id: user.id }, process.env.TOKEN_PRIVATE_KEY)
-        return res.status(200).json({ jwtToken }) */
-    }
 
+        const jwtToken = await jwt.sign({ id: user.id }, process.env.TOKEN_PRIVATE_KEY)
+        return res.status(200).json({ jwtToken })
+    }
 }

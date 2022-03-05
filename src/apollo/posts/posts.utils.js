@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.15
- * 수정일 : 22.02.27
+ * 수정일 : 22.03.03
  */
 
 export const sortSkillsbyPosition = (skills, isCreate) => {
@@ -13,11 +13,11 @@ export const sortSkillsbyPosition = (skills, isCreate) => {
         if (selectedSkill.position === "frontend") {
             frontendsArray.push({
                 ...(isCreate ? {
-                    skill: selectedSkill.skill
+                    name: selectedSkill.name
                 } : {
                     frontends: {
                         some: {
-                            skill: selectedSkill.skill
+                            name: selectedSkill.name
                         }
                     }
                 })
@@ -26,11 +26,11 @@ export const sortSkillsbyPosition = (skills, isCreate) => {
         else if (selectedSkill.position === "backend") {
             backendsArray.push({
                 ...(isCreate ? {
-                    skill: selectedSkill.skill
+                    name: selectedSkill.name
                 } : {
                     backends: {
                         some: {
-                            skill: selectedSkill.skill
+                            name: selectedSkill.name
                         }
                     }
                 })
@@ -39,11 +39,11 @@ export const sortSkillsbyPosition = (skills, isCreate) => {
         else if (selectedSkill.position === "app") {
             appsArray.push({
                 ...(isCreate ? {
-                    skill: selectedSkill.skill
+                    name: selectedSkill.name
                 } : {
                     apps: {
                         some: {
-                            skill: selectedSkill.skill
+                            name: selectedSkill.name
                         }
                     }
                 })
@@ -62,8 +62,8 @@ export const sortSkillsbyPosition = (skills, isCreate) => {
     ]
 }
 
-export const makeArrangement = (howToArrangement) => {
-    switch (howToArrangement) {
+export const makeSortMethod = (howToSort) => {
+    switch (howToSort) {
         case "new":
             return {
                 createdAt: "desc"

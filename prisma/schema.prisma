@@ -67,18 +67,18 @@ model Comment {
 
 model Frontend {
   id    Int    @id @default(autoincrement())
-  skill String @unique
+  name  String @unique
   posts Post[]
 }
 
 model Backend {
   id    Int    @id @default(autoincrement())
-  skill String @unique
+  name  String @unique
   posts Post[]
 }
 
 model App {
   id    Int    @id @default(autoincrement())
-  skill String @unique
+  name  String @unique
   posts Post[]
 }

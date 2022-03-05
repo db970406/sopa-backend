@@ -28,17 +28,17 @@ export default {
                                 }
                             },
                             frontends: {
-                                create: [
+                                connect: [
                                     ...frontendSkills
                                 ]
                             },
                             backends: {
-                                create: [
+                                connect: [
                                     ...backendSkills
                                 ]
                             },
                             apps: {
-                                create: [
+                                connect: [
                                     ...appSkills
                                 ]
                             }

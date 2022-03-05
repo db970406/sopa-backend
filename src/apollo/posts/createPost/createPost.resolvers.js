@@ -17,7 +17,8 @@ export default {
                     // 게시글을 생성하고 작성 User와 connect된다.
                     console.log(skills)
                     const [frontendSkills, backendSkills, appSkills] = sortSkillsbyPosition(skills, true);
-                    console.log(frontendSkills, backendSkills, appSkills);
+                    console.log(title, description, openChatLink, loggedInUser.id)
+                    console.log(...frontendSkills, ...backendSkills, ...appSkills);
                     const post = await client.post.create({
                         data: {
                             title,
@@ -30,7 +31,7 @@ export default {
                             },
                             frontends: {
                                 connect: [
-                                    ...frontendSkills
+                                    ...frontendSkills,
                                 ]
                             },
                             backends: {

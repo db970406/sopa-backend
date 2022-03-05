@@ -23,6 +23,7 @@ async function startApolloServer() {
         },
     });
 
+    // 실제 배포한 프론트 사이트 추가필요
     const safeSiteList = ['http://localhost:3000'];
 
     const corsOptions = {

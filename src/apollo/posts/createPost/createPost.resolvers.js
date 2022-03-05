@@ -13,10 +13,12 @@ export default {
         createPost: checkLoginState(
             async (_, { title, description, skills, openChatLink }, { loggedInUser }) => {
                 try {
-                    if (!skills) return null;
+                    if (!skills) throw new Error("스킬을 반드시 하나 이상 선택해주세요!");
                     // 게시글을 생성하고 작성 User와 connect된다.
+                    console.log(skills)
                     const [frontendSkills, backendSkills, appSkills] = sortSkillsbyPosition(skills, true);
-                    await client.post.create({
+                    console.log(frontendSkills, backendSkills, appSkills);
+                    const post = await client.post.create({
                         data: {
                             title,
                             description,
@@ -43,6 +45,7 @@ export default {
                             }
                         }
                     });
+                    console.log(post)
                     return {
                         ok: true,
                     }

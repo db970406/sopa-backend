@@ -148,7 +148,7 @@ export const kakaoLogin = async (req, res) => {
     const config = {
         grant_type: "authorization_code",
         client_id: process.env.KAKAO_REST_API_KEY,
-        redirect_uri: process.env.SOCIAL_KAKAO_CODE_REDIRECT,
+        redirect_uri: process.env.NODE_ENV === "production" ? process.env.SOCIAL_KAKAO_CODE_REDIRECT_PRO : process.env.SOCIAL_KAKAO_CODE_REDIRECT_DEV,
         code
     }
 

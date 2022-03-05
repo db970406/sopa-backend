@@ -15,11 +15,9 @@ export default {
                 try {
                     if (!skills) throw new Error("스킬을 반드시 하나 이상 선택해주세요!");
                     // 게시글을 생성하고 작성 User와 connect된다.
-                    console.log(skills)
                     const [frontendSkills, backendSkills, appSkills] = sortSkillsbyPosition(skills, true);
-                    console.log(title, description, openChatLink, loggedInUser.id)
-                    console.log(...frontendSkills, ...backendSkills, ...appSkills);
-                    const post = await client.post.create({
+
+                    await client.post.create({
                         data: {
                             title,
                             description,
@@ -30,23 +28,22 @@ export default {
                                 }
                             },
                             frontends: {
-                                connect: [
-                                    ...frontendSkills,
+                                create: [
+                                    ...frontendSkills
                                 ]
                             },
                             backends: {
-                                connect: [
+                                create: [
                                     ...backendSkills
                                 ]
                             },
                             apps: {
-                                connect: [
+                                create: [
                                     ...appSkills
                                 ]
                             }
                         }
                     });
-                    console.log(post)
                     return {
                         ok: true,
                     }

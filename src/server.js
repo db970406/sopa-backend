@@ -50,7 +50,9 @@ async function startApolloServer() {
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });
 
-    app.listen(PORT, () => console.log(`🚀 Server ready at http://localhost:4000`));
+    const inLocal = `🚀 Server ready at http://localhost:4000`;
+    const inProduction = `🚀 Server ready at https://sopa.life`;
+    app.listen(PORT, () => console.log(process.env.NODE_ENV === "production" ? inProduction : inLocal));
 }
 
 startApolloServer()

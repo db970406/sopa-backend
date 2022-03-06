@@ -29,7 +29,7 @@ async function startApolloServer() {
 
     // 실제 배포한 프론트 사이트 추가필요
     const safeSiteList = [
-        'https://www.sopa.life',
+        'https://sopa.life',
         'http://localhost:3000',
     ];
 

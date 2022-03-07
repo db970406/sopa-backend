@@ -9,25 +9,36 @@ import client from '../../../client'
 export default {
     Query: {
         seePost: async (_, { postId }, { loggedInUser }) => {
-            const findPost = await client.post.findUnique({
-                where: {
-                    id: postId
-                }
-            })
-
-            // 비작성자가 조회하면 조회수 1씩 증가
-            if (findPost.userId !== loggedInUser?.id) {
-                await client.post.update({
+            try {
+                const findPost = await client.post.findUnique({
                     where: {
-                        id: postId,
-                    },
-                    data: {
-                        readCount: ++findPost.readCount
+                        id: postId
                     }
-                })
-            }
+                });
 
-            return findPost
+                if (!findPost) throw new Error("존재하지 않는 게시글입니다.");
+
+                // 비작성자가 조회하면 조회수 1씩 증가
+                if (findPost.userId !== loggedInUser?.id) {
+                    await client.post.update({
+                        where: {
+                            id: postId,
+                        },
+                        data: {
+                            readCount: ++findPost.readCount
+                        }
+                    })
+                }
+
+                return {
+                    post: findPost,
+                }
+            } catch (error) {
+                return {
+                    post: null,
+                    error: error.message
+                }
+            }
         }
     }
 }

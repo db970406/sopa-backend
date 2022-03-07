@@ -179,11 +179,11 @@ export const kakaoLogin = async (req, res) => {
             })
         ).json()
 
-        const { properties } = userData
+        const { kakao_account } = userData
 
         const findUserEmail = await client.user.count({
             where: {
-                email: properties.email
+                email: kakao_account.email
             }
         })
         let user;
@@ -191,18 +191,18 @@ export const kakaoLogin = async (req, res) => {
             const hashPassword = await bcrypt.hash(String(Date.now()), 10)
             await client.user.create({
                 data: {
-                    name: properties.nickname,
+                    name: kakao_account.profile.nickname,
                     socialLogin: "KAKAO",
-                    email: properties.email,
+                    email: kakao_account.email,
                     password: hashPassword
                 }
             })
         }
         user = await client.user.findUnique({
             where: {
-                email: properties.email
+                email: kakao_account.email
             }
-        })
+        });
 
         const jwtToken = await jwt.sign({ id: user.id }, process.env.TOKEN_PRIVATE_KEY)
         return res.status(200).json({ jwtToken })

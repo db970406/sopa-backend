@@ -12,6 +12,7 @@ datasource db {
 
 model User {
   id          Int       @id @default(autoincrement())
+  githubURL   String?
   socialLogin String?
   level       Int       @default(0)
   name        String    @unique

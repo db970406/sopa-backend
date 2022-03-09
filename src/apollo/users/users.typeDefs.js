@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.02.23
+ * 수정일 : 22.03.09
  */
 
 import { gql } from 'apollo-server';
@@ -8,6 +8,7 @@ import { gql } from 'apollo-server';
 export default gql`
     type User{
         id:Int!
+        githubURL:String
         level:Int!
         socialLogin:String
         name:String!

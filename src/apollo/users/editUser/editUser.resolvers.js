@@ -1,6 +1,6 @@
 /**
  * 생성일 : 22.02.07
- * 수정일 : 22.03.03
+ * 수정일 : 22.03.09
  */
 
 import bcrypt from "bcrypt";
@@ -10,7 +10,7 @@ import { checkLoginState } from '../users.utils';
 export default {
     Mutation: {
         editUser: checkLoginState(
-            async (_, { name, password }, { loggedInUser }) => {
+            async (_, { name, password, githubURL }, { loggedInUser }) => {
                 try {
                     // 존재하는 아이디 여부 체크
                     if (name) {
@@ -37,7 +37,8 @@ export default {
                         },
                         data: {
                             name,
-                            password: hashingPW
+                            password: hashingPW,
+                            githubURL
                         }
                     });
 

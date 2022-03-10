@@ -79,7 +79,6 @@ export const githubLogin = async (req, res) => {
 
 export const naverLogin = async (req, res) => {
     const { code } = req.body;
-    console.log(code);
 
     const baseUrl = `https://nid.naver.com/oauth2.0/token`
 
@@ -93,13 +92,12 @@ export const naverLogin = async (req, res) => {
 
     const params = new URLSearchParams(config).toString()
     const reqUrl = `${baseUrl}?${params}`
-    console.log("reqUrl : ", reqUrl)
+
     const token = await (
         await fetch(reqUrl, {
             method: "POST",
         })
     ).json()
-    console.log("token : ", token)
 
     if ("access_token" in token) {
         const { access_token } = token
@@ -112,8 +110,6 @@ export const naverLogin = async (req, res) => {
                 },
             })
         ).json()
-        console.log("userData : ", userData)
-
 
         const { response } = userData
 
@@ -128,7 +124,7 @@ export const naverLogin = async (req, res) => {
             const hashPassword = await bcrypt.hash(String(Date.now()), 10)
             await client.user.create({
                 data: {
-                    name: response.name,
+                    name: response.nickname,
                     socialLogin: "NAVER",
                     email: response.email,
                     password: hashPassword
@@ -140,7 +136,7 @@ export const naverLogin = async (req, res) => {
                 email: response.email
             }
         })
-        console.log("user : ", user)
+
         const jwtToken = await jwt.sign({ id: user.id }, process.env.TOKEN_PRIVATE_KEY)
         return res.status(201).json({ jwtToken })
     }

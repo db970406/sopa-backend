@@ -60,7 +60,7 @@ export const githubLogin = async (req, res) => {
 
             user = await client.user.create({
                 data: {
-                    name: userData.name,
+                    name: userData.name || emailObj.email.split("@")[0],
                     socialLogin: "GITHUB",
                     email: emailObj.email,
                     password: hashPassword
@@ -78,67 +78,74 @@ export const githubLogin = async (req, res) => {
 }
 
 export const naverLogin = async (req, res) => {
-    const { code } = req.body;
+    try {
+        const { code } = req.body;
 
-    const baseUrl = `https://nid.naver.com/oauth2.0/token`
+        const baseUrl = `https://nid.naver.com/oauth2.0/token`
 
-    const config = {
-        grant_type: "authorization_code",
-        client_id: process.env.SOCIAL_NAVER_KEY,
-        client_secret: process.env.SOCIAL_NAVER_SECRET,
-        code,
-        state: process.env.SOCIAL_NAVER_STATE
-    }
+        const config = {
+            grant_type: "authorization_code",
+            client_id: process.env.SOCIAL_NAVER_KEY,
+            client_secret: process.env.SOCIAL_NAVER_SECRET,
+            code,
+            state: process.env.SOCIAL_NAVER_STATE
+        }
 
-    const params = new URLSearchParams(config).toString()
-    const reqUrl = `${baseUrl}?${params}`
+        const params = new URLSearchParams(config).toString()
+        const reqUrl = `${baseUrl}?${params}`
 
-    const token = await (
-        await fetch(reqUrl, {
-            method: "POST",
-        })
-    ).json()
-
-    if ("access_token" in token) {
-        const { access_token } = token
-        const apiUrl = "https://openapi.naver.com/v1/nid/me"
-
-        const userData = await (
-            await fetch(apiUrl, {
-                headers: {
-                    Authorization: `Bearer ${access_token}`
-                },
+        const token = await (
+            await fetch(reqUrl, {
+                method: "POST",
             })
         ).json()
 
-        const { response } = userData
+        if ("access_token" in token) {
+            const { access_token } = token
+            const apiUrl = "https://openapi.naver.com/v1/nid/me"
 
-        const findUserEmail = await client.user.count({
-            where: {
-                email: response.email
-            }
-        })
+            const userData = await (
+                await fetch(apiUrl, {
+                    headers: {
+                        Authorization: `Bearer ${access_token}`
+                    },
+                })
+            ).json()
 
-        let user;
-        if (!findUserEmail && !user) {
-            const hashPassword = await bcrypt.hash(String(Date.now()), 10)
-            await client.user.create({
-                data: {
-                    name: response.nickname,
-                    socialLogin: "NAVER",
-                    email: response.email,
-                    password: hashPassword
+            const { response } = userData
+            if (!response.email) throw new Error("이메일 수집 허용은 필수입니다.");
+            else if (!response.nickname) throw new Error("별명 수집 허용은 필수입니다.");
+
+            const findUserEmail = await client.user.count({
+                where: {
+                    email: response.email
                 }
             })
-        }
-        user = await client.user.findUnique({
-            where: {
-                email: response.email
-            }
-        })
 
-        const jwtToken = await jwt.sign({ id: user.id }, process.env.TOKEN_PRIVATE_KEY)
-        return res.status(201).json({ jwtToken })
+
+            let user;
+            if (!findUserEmail && !user) {
+                const hashPassword = await bcrypt.hash(String(Date.now()), 10)
+                await client.user.create({
+                    data: {
+                        name: response.nickname || response.email.split("@")[0],
+                        socialLogin: "NAVER",
+                        email: response.email,
+                        password: hashPassword
+                    }
+                })
+            }
+            user = await client.user.findUnique({
+                where: {
+                    email: response.email
+                }
+            })
+
+            const jwtToken = await jwt.sign({ id: user.id }, process.env.TOKEN_PRIVATE_KEY)
+            return res.status(201).json({ jwtToken })
+        }
+    } catch (error) {
+        return res.status(404).json({ error: error.message })
     }
 }
 
@@ -192,7 +199,7 @@ export const kakaoLogin = async (req, res) => {
             const hashPassword = await bcrypt.hash(String(Date.now()), 10)
             await client.user.create({
                 data: {
-                    name: kakao_account.profile.nickname,
+                    name: kakao_account.profile.nickname || kakao_account.email.split("@")[0],
                     socialLogin: "KAKAO",
                     email: kakao_account.email,
                     password: hashPassword

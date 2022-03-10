@@ -30,7 +30,6 @@ async function startApolloServer() {
     // 실제 배포한 프론트 사이트 추가필요
     const safeSiteList = [
         'https://sopa.life',
-        'http://localhost:3000',
     ];
 
     const corsOptions = {
@@ -46,7 +45,7 @@ async function startApolloServer() {
     app.use(express.json());
     app.use(cors(corsOptions));
     app.use(morgan("tiny"));
-    app.use("/sociallogin", socialLoginRouter)
+    app.use("/sociallogin", socialLoginRouter);
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });
 

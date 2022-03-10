@@ -45,7 +45,7 @@ async function startApolloServer() {
     app.use(express.json());
     app.use(cors(corsOptions));
     app.use(morgan("tiny"));
-    app.use("/sociallogin", socialLoginRouter);
+    app.use("/sociallogin", socialLoginRouter)
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });
 

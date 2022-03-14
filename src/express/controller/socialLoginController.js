@@ -122,7 +122,6 @@ export const naverLogin = async (req, res) => {
                 }
             })
 
-
             let user;
             if (!findUserEmail && !user) {
                 const hashPassword = await bcrypt.hash(String(Date.now()), 10)

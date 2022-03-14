@@ -12,7 +12,6 @@ import cors from "cors"
 import socialLoginRouter from './express/router/socialLoginRouter';
 import { getUser } from './apollo/users/users.utils';
 import { schema } from './schema';
-import { ApolloServerPluginLandingPageProductionDefault } from "apollo-server-core";
 
 async function startApolloServer() {
     const apolloServer = new ApolloServer({
@@ -21,10 +20,7 @@ async function startApolloServer() {
             return {
                 loggedInUser: await getUser(req.headers.token)
             }
-        },
-        plugins: [
-            ApolloServerPluginLandingPageProductionDefault({ footer: false })
-        ]
+        }
     });
 
     // 실제 배포한 프론트 사이트 추가필요

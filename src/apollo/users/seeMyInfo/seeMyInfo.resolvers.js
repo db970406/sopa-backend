@@ -9,7 +9,7 @@ import { checkLoginState } from '../users.utils';
 export default {
     Query: {
         seeMyInfo: checkLoginState(
-            async (_, __, { loggedInUser }) => client.user.findUnique({
+            (_, __, { loggedInUser }) => client.user.findUnique({
                 where: { id: loggedInUser.id }
             })
         )

@@ -16,8 +16,6 @@ export default {
                     }
                 });
 
-                if (!findPost) throw new Error("존재하지 않는 게시글입니다.");
-
                 // 비작성자가 조회하면 조회수 1씩 증가
                 if (findPost.userId !== loggedInUser?.id) {
                     await client.post.update({
@@ -30,14 +28,9 @@ export default {
                     })
                 }
 
-                return {
-                    post: findPost,
-                }
-            } catch (error) {
-                return {
-                    post: null,
-                    error: error.message
-                }
+                return findPost
+            } catch {
+                return null;
             }
         }
     }

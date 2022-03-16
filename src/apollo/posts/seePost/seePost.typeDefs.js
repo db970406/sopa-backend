@@ -6,11 +6,7 @@
 import { gql } from 'apollo-server';
 
 export default gql`
-    type SeePostResults{
-        post:Post
-        error:String
-    }
     type Query{
-        seePost(postId:Int!):SeePostResults!
+        seePost(postId:Int!):Post
     }
 `

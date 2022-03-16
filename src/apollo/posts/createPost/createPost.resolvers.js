@@ -17,7 +17,7 @@ export default {
                     // 게시글을 생성하고 작성 User와 connect된다.
                     const [frontendSkills, backendSkills, appSkills] = sortSkillsbyPosition(skills, true);
 
-                    await client.post.create({
+                    const post = await client.post.create({
                         data: {
                             title,
                             description,
@@ -44,6 +44,7 @@ export default {
                             }
                         }
                     });
+                    if (!post) throw new Error("게시물이 생성에 실패했습니다.");
                     return {
                         ok: true,
                     }
